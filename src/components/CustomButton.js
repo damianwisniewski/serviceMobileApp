@@ -1,7 +1,7 @@
 import React from 'react';
-import {TouchableHighlight, StyleSheet, Text, View} from 'react-native';
+import {TouchableHighlight, Text, View} from 'react-native';
 
-export const CustomButton = (props) => {
+export const CustomButton = props => {
     
     return (
         <TouchableHighlight 

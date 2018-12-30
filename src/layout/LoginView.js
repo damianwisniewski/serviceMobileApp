@@ -7,10 +7,10 @@ import {
   TextInput,
   TouchableHighlight
 } from "react-native";
-import { CustomButton } from "../components/customButton";
+import { CustomButton } from "../components/CustomButton";
 import { Icon } from "react-native-elements";
 
-export default class Login extends Component {
+export default class LoginView extends Component {
   constructor(props) {
     super(props);
 
@@ -20,6 +20,10 @@ export default class Login extends Component {
       authorized: false
     };
   }
+
+  // static navigationOptions = {
+  //   header: null
+  // }
 
   authorizeEntry = () => {
     const login = this.state.login;
@@ -35,19 +39,25 @@ export default class Login extends Component {
       .then(res => res.json())
       .then(res => {
         if (res.auth) {
-          this.setState({ authorized: true });
-          // this.props.onLoginSubmit({id: res.login, name: res.data[0].firma, userAuth: true, adminAuth: false});
-          // this.props.history.push('/client-panel')
+          this.setState({ authorized: true })
+        } else {
+          this.setState({ authorized: false })
+          this.setState({ information: 'Login lub hasło są niepoprawne, spróbuj raz jeszcze' });
         }
       })
       .catch(err => {
-        alert(err + ": Utracono połączenie z bazą danych");
+        this.setState({ information: "Przepraszamy pojawiły sie problemy techniczne, proszę spróbować później" });
       })
       .finally(() => {
-        alert(this.state.authorized);
-      });
-  };
-
+        if (this.state.authorized) {
+          const { navigate } = this.props.navigation
+          navigate('MainView')
+        } else {
+          alert(this.state.information);
+        }
+      })
+  }
+  
   render() {
     return (
       <View style={styles.container}>
