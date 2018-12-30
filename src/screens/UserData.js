@@ -3,15 +3,17 @@ import { StyleSheet, View } from "react-native"
 import { Icon } from "react-native-elements"
 import { TileButton } from "../components/TileButton"
 import MainViewLayout from "../layout/MainViewLayout"
+import { connect } from 'react-redux'
 
-export default class MainMenu extends Component {
+class UserData extends Component {
     constructor(props) {
         super(props)
     }
 
     static navigationOptions = {
-        drawerLabel: 'Menu Główne'
+        drawerLabel: 'Informacje'
     }
+
     render() {
         return (
             <MainViewLayout 
@@ -31,12 +33,6 @@ export default class MainMenu extends Component {
                     <TileButton 
                         title='Status Zgłoszeń'
                         onPress={() => console.log()}/>
-                    <TileButton 
-                        title='Zanane Awarie'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='O nas'
-                        onPress={() => console.log()}/>
                 </View>
             </MainViewLayout>
         )
@@ -52,3 +48,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
   }
 })
+
+const mapStateToProps = state => {
+    return {
+        id: state.user.id,
+        company: state.user.company, 
+        name: state.user.name, 
+        surname: state.user.surname,
+    }
+}
+
+export default connect(mapStateToProps, null)(UserData)

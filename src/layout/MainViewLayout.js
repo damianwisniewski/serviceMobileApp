@@ -6,7 +6,9 @@ import { SmallNavBar } from "../components/SmallNavBar";
 export default MainViewLayout = props => {
   return (
     <View style={styles.container}>
-      <NavBar openSideBar={props.openSideBar}/>
+      <NavBar 
+        openSideBar={props.openSideBar}
+        onUserIconPress={props.onUserIconPress}/>
       <SmallNavBar />
       {props.children}
     </View>

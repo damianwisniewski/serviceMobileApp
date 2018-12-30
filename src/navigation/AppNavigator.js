@@ -5,7 +5,8 @@ import {createDrawerNavigator, createAppContainer} from 'react-navigation'
  */
 import LoginView from '../screens/LoginView'
 import MainMenu from '../screens/MainMenu'
-
+import NewNotification from '../screens/NewNotification'
+import UserData from '../screens/UserData'
 
 const AppNavigation = createDrawerNavigator(
   {
@@ -14,11 +15,20 @@ const AppNavigation = createDrawerNavigator(
     },
     MainMenu: {
       screen: MainMenu
+    },
+    NewNotification: {
+      screen: NewNotification
+    },
+    UserData: {
+      screen: UserData
     }
   },
   {
     initialRouteName: "Login",
-    headerMode: 'none'
+    headerMode: 'none',
+    contentOptions: {
+      activeTintColor: '#e91e63',
+    }
   }
 )
 

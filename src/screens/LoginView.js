@@ -1,14 +1,16 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import {
   StyleSheet,
   Text,
   View,
   TextInput
-} from "react-native";
-import { CustomButton } from "../components/CustomButton";
-import { Icon } from "react-native-elements";
+} from "react-native"
+import { CustomButton } from "../components/CustomButton"
+import { Icon } from "react-native-elements"
+import { setUser } from '../reduxStore/actions/user'
+import { connect } from 'react-redux'
 
-export default class LoginView extends Component {
+class LoginView extends Component {
   constructor(props) {
     super(props);
 
@@ -40,17 +42,24 @@ export default class LoginView extends Component {
       .then(res => res.json())
       .then(res => {
         if (res.auth) {
-          this.setState({ authorized: true })
+          const userData = {
+            id: res.login,
+            company: res.data[0].firma, 
+            name: res.data[0].imie, 
+            surname: res.data[0].nazwisko,
+            authorized: res.auth
+          }
+          this.props.onGetUserData(userData)
         } else {
-          this.setState({ authorized: false })
-          this.setState({ information: 'Login lub hasło są niepoprawne, spróbuj raz jeszcze' });
+          this.props.onGetUserData({authorized: false})
+          this.setState({ information: 'Login lub hasło są niepoprawne, spróbuj raz jeszcze' })
         }
       })
       .catch(err => {
-        this.setState({ information: "Przepraszamy pojawiły sie problemy techniczne, proszę spróbować później" });
+        this.setState({ information: "Przepraszamy pojawiły sie problemy techniczne, proszę spróbować później" })
       })
       .finally(() => {
-        if (this.state.authorized) {
+        if (this.props.authorized) {
           const { navigate } = this.props.navigation
           navigate('MainMenu')
         } else {
@@ -175,3 +184,20 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
+// parameter from redux store we were subscribe for (available in this.props[PARAMETER_NAME])
+const mapStateToProps = state => {
+  return {
+      authorized: state.user.authorized
+  }
+}
+
+// dispatchers to run reducer (available in this.props[FUNCTION_NAME])
+const mapDispatchToProps = dispatch => {
+  return {
+      onGetUserData: (userData) => dispatch(setUser(userData))
+  }
+}
+
+// connecting component with redux
+export default connect(mapStateToProps, mapDispatchToProps)(LoginView)

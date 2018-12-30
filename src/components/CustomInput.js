@@ -6,9 +6,11 @@ export const CustomInput = props => {
     <View>
       <Text>{ props.title }</Text>
       <TextInput
+        style={props.style}
         placeholder = { props.placeholder || 'use placeholder attribute' }
         onChangeText = { props.onChangeText }
-        value = { props.value } 
+        value = { props.value }
+        {...props }
       />
     </View>
   );

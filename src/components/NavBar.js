@@ -8,7 +8,7 @@ export const NavBar = props => {
       <Icon 
         name="bars" 
         type="font-awesome" 
-        color="#FFF" size={40} 
+        color="#FFF" size={30} 
         onPress={() => props.openSideBar()}/>
 
       <Text
@@ -25,7 +25,7 @@ export const NavBar = props => {
           type="font-awesome" 
           color="#00aced" 
           size={60} 
-          onPress={() => console.log('działa')} />
+          onPress={() => props.onUserIconPress()} />
       </View>
     </View>
   );
