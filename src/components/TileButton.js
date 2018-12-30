@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableHighlight, StyleSheet, Text, View} from 'react-native';
+import { Icon } from "react-native-elements"
 
 export const TileButton = props => {
     
@@ -12,6 +13,12 @@ export const TileButton = props => {
                 <Text style={styles.text}>
                     {props.title}
                 </Text>
+                <Icon
+                    name={props.iconName}
+                    type={props.iconType}
+                    color={props.iconColor}
+                    size={props.iconSize}
+                />
             </View>
 
         </TouchableHighlight>
@@ -36,6 +43,7 @@ const styles = StyleSheet.create({
   
     text: {
       textAlign: 'center',
-      fontSize: 20
+      fontSize: 18,
+      marginBottom: 15
     }
 });

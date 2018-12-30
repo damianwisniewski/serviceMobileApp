@@ -21,22 +21,11 @@ export default class MainMenu extends Component {
                 <View style={styles.container}>
                     <TileButton 
                         title='Awaria'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='Reklamacja'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='Funkcjonalność'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='Status Zgłoszeń'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='Zanane Awarie'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='O nas'
-                        onPress={() => console.log()}/>
+                        iconName='bug'
+                        iconType='font-awesome'
+                        iconColor='#444'
+                        iconSize={40}
+                        onPress={() => this.props.navigation.navigate('NewNotification')}/>
                 </View>
             </MainViewLayout>
         )

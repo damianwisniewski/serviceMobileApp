@@ -29,19 +29,21 @@ class NewNotification extends Component {
                     contentContainerStyle={styles.container}
                 >
                     <CustomInput
-                        style={styles.input} 
                         title='Twój numer id:'
                         value={String(this.props.id)}
                         editable={false}
                     />
                     <CustomInput 
                         title='Twój numer id:'
+                        placeholder='Tutaj wpisz treść zgłoszenia...'
                     />
                     <CustomInput 
                         title='Twój numer id:'
+                        placeholder='Tutaj wpisz treść zgłoszenia...'
                     />
                     <CustomTextarea 
-                        title='Twój numer id:'
+                        title='Treść zgłoszenia:'
+                        placeholder='Tutaj wpisz treść zgłoszenia...'
                     />
                     <CustomButton 
                         title='Wyślij!'
@@ -54,24 +56,9 @@ class NewNotification extends Component {
 
 const styles = StyleSheet.create({
   container: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-  },
-
-  input: {
-      width: '100%',
-      backgroundColor: '#FFF',
-      elevation: 3,
-      shadowOffset: { width: 20, height: 20 },
-      shadowColor: "#000",
-      shadowOpacity: 0.4,
-      shadowRadius: 1,
-      borderRadius: 4,
-      borderWidth: 1,
-      borderColor: '#CCC',
-      padding: 5,
-      fontSize: 16
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

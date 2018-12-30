@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#6C9BD1',
     height: 35,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '100%'
   },
 
   h2: {

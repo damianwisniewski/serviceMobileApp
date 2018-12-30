@@ -100,9 +100,6 @@ class LoginView extends Component {
           {/* Submit Button */}
           <CustomButton
             title="ZALOGUJ"
-            wrapperStyle={{ width: "80%", justifyContent: "center" }}
-            buttonStyle={styles.button}
-            textStyle={styles.buttonText}
             onPress={this.authorizeEntry}
           />
         </View>
@@ -161,27 +158,6 @@ const styles = StyleSheet.create({
     marginRight: 7,
     borderWidth: 0,
     borderBottomWidth: 1
-  },
-
-  link: {
-    fontSize: 15,
-    marginBottom: 20,
-    color: "#9D9D9D",
-    textDecorationLine: "underline"
-  },
-
-  button: {
-    width: "100%",
-    backgroundColor: "#2c5cbd",
-    padding: 10,
-    borderRadius: 5,
-    justifyContent: "center"
-  },
-
-  buttonText: {
-    fontSize: 15,
-    color: "#FFF",
-    textAlign: "center"
   }
 });
 
