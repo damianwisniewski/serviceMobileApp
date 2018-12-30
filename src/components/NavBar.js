@@ -9,7 +9,7 @@ export const NavBar = props => {
         name="bars" 
         type="font-awesome" 
         color="#FFF" size={40} 
-        onPress={() => console.log('działa')}/>
+        onPress={() => props.openSideBar()}/>
 
       <Text
         style={styles.h1}

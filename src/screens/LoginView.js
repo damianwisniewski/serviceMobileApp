@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  TextInput,
-  TouchableHighlight
+  TextInput
 } from "react-native";
 import { CustomButton } from "../components/CustomButton";
 import { Icon } from "react-native-elements";
@@ -21,9 +19,12 @@ export default class LoginView extends Component {
     };
   }
 
-  // static navigationOptions = {
-  //   header: null
-  // }
+  static navigationOptions = {
+    // it hides native header
+    header: null,
+    // it hides login label in drawer navigation (side bar)
+    drawerLabel: () => null
+  }
 
   authorizeEntry = () => {
     const login = this.state.login;
@@ -51,7 +52,7 @@ export default class LoginView extends Component {
       .finally(() => {
         if (this.state.authorized) {
           const { navigate } = this.props.navigation
-          navigate('MainView')
+          navigate('MainMenu')
         } else {
           alert(this.state.information);
         }

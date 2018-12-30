@@ -4,32 +4,14 @@
  */
 
 import React, {Component} from 'react'
-import LoginView from './layout/LoginView'
-import MainView from './layout/MainView'
-import {createStackNavigator, createAppContainer} from 'react-navigation';
+import AppNavigator from './navigation/AppNavigator'
 
 export default class App extends Component {
 
   render() {
     return (
-      <AppContainer />
+      <AppNavigator />
     )
   }
 }
 
-const AppNavigation = createStackNavigator(
-  {
-    Login: {
-      screen: LoginView
-    },
-    MainView: {
-      screen: MainView
-    }
-  },
-  {
-    initialRouteName: "Login",
-    headerMode: 'none'
-  }
-)
-
-const AppContainer = createAppContainer(AppNavigation)
