@@ -11,7 +11,10 @@ class UserData extends Component {
     }
 
     static navigationOptions = {
-        drawerLabel: 'Informacje'
+        drawerLabel: 'Informacje',
+        drawerIcon: () => (
+            <Icon name="info-circle" type='font-awesome' />
+        )
     }
 
     render() {

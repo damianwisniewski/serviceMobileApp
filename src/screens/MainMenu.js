@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, Image } from "react-native"
 import { Icon } from "react-native-elements"
 import { TileButton } from "../components/TileButton"
 import MainViewLayout from "../layout/MainViewLayout"
@@ -10,7 +10,10 @@ export default class MainMenu extends Component {
     }
 
     static navigationOptions = {
-        drawerLabel: 'Menu Główne'
+        drawerLabel: 'Menu Główne',
+        drawerIcon: () => (
+            <Icon name="home" />
+        )
     }
     render() {
         return (

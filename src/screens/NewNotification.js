@@ -14,7 +14,10 @@ class NewNotification extends Component {
     }
 
     static navigationOptions = {
-        drawerLabel: 'Zgłoszenie Awarii'
+        drawerLabel: 'Zgłoszenie Awarii',
+        drawerIcon: () => (
+            <Icon name="bug" type='font-awesome' />
+        )
     }
 
     render() {

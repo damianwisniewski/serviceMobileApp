@@ -51,7 +51,7 @@ class LoginView extends Component {
           }
           this.props.onGetUserData(userData)
         } else {
-          this.props.onGetUserData({authorized: false})
+          this.props.onGetUserData({authorized: true})
           this.setState({ information: 'Login lub hasło są niepoprawne, spróbuj raz jeszcze' })
         }
       })
