@@ -1,5 +1,5 @@
 import React from 'react'
-import {TouchableHighlight, Text, View, StyleSheet} from 'react-native'
+import { Text, View, StyleSheet} from 'react-native'
 import { Icon } from "react-native-elements"
 
 export const ContactInfo = props => {

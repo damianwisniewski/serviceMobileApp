@@ -7,6 +7,7 @@ export const TileButton = props => {
     return (
         <TouchableHighlight 
             style={{margin: 0, padding: 0}}
+            underlayColor='transparent'
             onPress={props.onPress}>
 
             <View style={styles.TileButton}>

@@ -1,11 +1,12 @@
 import React from "react";
-import { TouchableHighlight, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 
 export const NavBar = props => {
   return (
     <View style={styles.navbar}>
       <Icon 
+        underlayColor='transparent'
         name="bars" 
         type="font-awesome" 
         color="#FFF" size={30} 
@@ -20,7 +21,8 @@ export const NavBar = props => {
       <View></View>
 
       <View style={styles.userIcon}>
-        <Icon 
+        <Icon
+          underlayColor='transparent' 
           name="user-circle" 
           type="font-awesome" 
           color="#00aced" 

@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableHighlight, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 
 export const SmallNavBar = props => {

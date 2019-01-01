@@ -5,6 +5,7 @@ export const CustomButton = props => {
     
     return (
         <TouchableHighlight 
+            underlayColor='transparent'
             style={styles.wrapperStyle}
             onPress={props.onPress}>
 
