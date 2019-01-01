@@ -17,7 +17,8 @@ export default class MainMenu extends Component {
     }
     render() {
         return (
-            <MainViewLayout 
+            <MainViewLayout
+                screenTitle={MainMenu.navigationOptions.drawerLabel} 
                 openSideBar={this.props.navigation.openDrawer}
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >

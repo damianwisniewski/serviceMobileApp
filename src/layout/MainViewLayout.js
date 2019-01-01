@@ -9,7 +9,9 @@ export default MainViewLayout = props => {
       <NavBar 
         openSideBar={props.openSideBar}
         onUserIconPress={props.onUserIconPress}/>
-      <SmallNavBar />
+      <SmallNavBar 
+        title={props.screenTitle}
+      />
       {props.children}
     </View>
   )

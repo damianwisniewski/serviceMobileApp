@@ -7,8 +7,9 @@ export const SmallNavBar = props => {
     <View style={styles.container}
         style={styles.smallNav} >
         <Text
-            style={styles.h2} >
-            Menu</Text>
+          style={styles.h2} >
+          {props.title}    
+        </Text>
     </View>
   );
 };

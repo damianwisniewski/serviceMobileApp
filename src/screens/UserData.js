@@ -22,6 +22,7 @@ class UserData extends Component {
     render() {
         return (
             <MainViewLayout 
+                screenTitle={UserData.navigationOptions.drawerLabel} 
                 openSideBar={this.props.navigation.openDrawer}
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >

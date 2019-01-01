@@ -22,7 +22,8 @@ class NewNotification extends Component {
 
     render() {
         return (
-            <MainViewLayout 
+            <MainViewLayout
+                screenTitle={NewNotification.navigationOptions.drawerLabel}  
                 openSideBar={this.props.navigation.openDrawer}
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >
