@@ -1,9 +1,11 @@
 import React, { Component } from "react"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, Text } from "react-native"
 import { Icon } from "react-native-elements"
 import { TileButton } from "../components/TileButton"
 import MainViewLayout from "../layout/MainViewLayout"
 import { connect } from 'react-redux'
+import { ContactInfo } from '../components/ContactInfo'
+import { DataOutput } from '../components/DataOutput'
 
 class UserData extends Component {
     constructor(props) {
@@ -24,19 +26,24 @@ class UserData extends Component {
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >
                 <View style={styles.container}>
-                    <TileButton 
-                        title='Awaria'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='Reklamacja'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='Funkcjonalność'
-                        onPress={() => console.log()}/>
-                    <TileButton 
-                        title='Status Zgłoszeń'
-                        onPress={() => console.log()}/>
+                    <DataOutput
+                        title='ID Użytkownika:'
+                        value={String(this.props.id)}
+                    />
+                    <DataOutput
+                        title='Nazwa Firmy:'
+                        value={this.props.company}
+                    />
+                    <DataOutput
+                        title='Imię:'
+                        value={this.props.name || '--------'}
+                    />
+                    <DataOutput
+                        title='Nazwisko:'
+                        value={this.props.surname || '--------'}
+                    />
                 </View>
+                <ContactInfo />
             </MainViewLayout>
         )
     }
@@ -49,6 +56,7 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: '#CCC'
   }
 })
 
