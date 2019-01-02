@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     TileButton: {
       width: 160,
       height: '25%',
+      minHeight: 100,
       margin: 20,
       backgroundColor: '#FFF',
       borderRadius: 5,

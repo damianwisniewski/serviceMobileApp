@@ -1,5 +1,10 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native"
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
+
 
 export const DataOutput = props => {
     console.log(props)
@@ -29,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'right',
     paddingRight: 20,
-    fontSize: 18,
+    fontSize: Math.min(wp('4.5%'), 20),
     marginBottom: 5,
     marginTop: 20,
     fontWeight: 'bold'
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
 
   output: {
     flex: 1,
-    fontSize: 20,
+    fontSize: Math.min(wp('4.5%'), 20),
     paddingLeft: 20,
     marginBottom: 5,
     marginTop: 20,

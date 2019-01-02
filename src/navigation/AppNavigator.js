@@ -1,6 +1,7 @@
 import React from 'react'
 import {Text, View, Image} from 'react-native'
 import {DrawerItems, createDrawerNavigator, createAppContainer} from 'react-navigation'
+import { ScrollView } from "react-native-gesture-handler";
 
 /**
  * SCREENS
@@ -33,6 +34,8 @@ const AppNavigation = createDrawerNavigator(
       activeBackgroundColor: '#2c5cbd'
     },
     contentComponent: (props) => (
+      <ScrollView 
+                    contentContainerStyle={{minHeight: '100%'}}>
       <View>
         <Image
           style={{width: '100%', height: 150}}
@@ -40,6 +43,9 @@ const AppNavigation = createDrawerNavigator(
         />
         <Text
           style={{
+            textShadowColor:'#585858',
+            textShadowOffset:{width: 5, height: 5},
+            textShadowRadius:10,
             position: 'absolute',
             top: 75,
             right: 20,
@@ -50,6 +56,7 @@ const AppNavigation = createDrawerNavigator(
           SmallService</Text>
         <DrawerItems {...props} />
       </View>
+      </ScrollView>
     )
   }
 )

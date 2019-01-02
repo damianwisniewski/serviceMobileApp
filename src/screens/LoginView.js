@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import {
   StyleSheet,
+  ActivityIndicator,
   Text,
   View,
   TextInput
@@ -9,6 +10,12 @@ import { CustomButton } from "../components/CustomButton"
 import { Icon } from "react-native-elements"
 import { setUser } from '../reduxStore/actions/user'
 import { connect } from 'react-redux'
+import { ScrollView } from "react-native-gesture-handler"
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
+import CustomModal from "../components/Modal"
 
 class LoginView extends Component {
   constructor(props) {
@@ -17,7 +24,8 @@ class LoginView extends Component {
     this.state = {
       login: "",
       password: "",
-      authorized: false
+      authorized: false,
+      isModalVisible: false
     };
   }
 
@@ -28,7 +36,17 @@ class LoginView extends Component {
     drawerLabel: () => null
   }
 
+  hideModalWithDelay() {
+    setTimeout(() => {
+      this.setState({
+        isModalVisible: false,
+        information: null
+      }) 
+    }, 3000)
+  }
+
   authorizeEntry = () => {
+    this.setState({isModalVisible: true})
     const login = this.state.login;
     const password = this.state.password;
 
@@ -50,60 +68,73 @@ class LoginView extends Component {
             authorized: res.auth
           }
           this.props.onGetUserData(userData)
+          this.setState({authorized: true})
         } else {
-          this.props.onGetUserData({authorized: true})
-          this.setState({ information: 'Login lub hasło są niepoprawne, spróbuj raz jeszcze' })
+          this.props.onGetUserData({authorized: false})
+          this.setState({authorized: false, information: 'Login lub hasło są niepoprawne, spróbuj raz jeszcze' })
         }
       })
       .catch(err => {
         this.setState({ information: "Przepraszamy pojawiły sie problemy techniczne, proszę spróbować później" })
       })
       .finally(() => {
-        if (this.props.authorized) {
+        if (this.state.authorized) {
           const { navigate } = this.props.navigation
+          this.setState({isModalVisible: false})
           navigate('MainMenu')
         } else {
-          alert(this.state.information);
+          this.hideModalWithDelay()
         }
       })
   }
   
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.loginWrapper}>
-          <Text style={styles.header}>Logowanie</Text>
+      <ScrollView 
+        contentContainerStyle={{minHeight: '100%'}}>
+        <View style={styles.container}>
 
-          {/* Login */}
-          <View style={styles.inputWrapper}>
-            <Icon name="face" color="#00aced" size={40} />
-            <TextInput
-              placeholder="Podaj Login"
-              style={styles.input}
-              onChangeText={text => this.setState({ login: text })}
-              value={this.state.login}
+          { this.state.isModalVisible && (
+            <CustomModal 
+              text={ this.state.information || 'Sprawdzanie danych'}
+              stopAnimate={Boolean(this.state.information)}
+              fail={!this.state.authorized}
+            />
+          )}
+
+          <View style={styles.loginWrapper}>
+            <Text style={styles.header}>Logowanie</Text>
+            {/* Login */}
+            <View style={styles.inputWrapper}>
+              <Icon name="face" color="#00aced" size={40} />
+              <TextInput
+                placeholder="Podaj Login"
+                style={styles.input}
+                onChangeText={text => this.setState({ login: text })}
+                value={this.state.login}
+              />
+            </View>
+
+            {/* Password */}
+            <View style={styles.inputWrapper}>
+              <Icon name="lock" color="#00aced" loading={true} size={40} />
+              <TextInput
+                secureTextEntry={true}
+                placeholder="Podaj hasło"
+                style={styles.input}
+                onChangeText={text => this.setState({ password: text })}
+                value={this.state.password}
+              />
+            </View>
+
+            {/* Submit Button */}
+            <CustomButton
+              title="ZALOGUJ"
+              onPress={this.authorizeEntry}
             />
           </View>
-
-          {/* Password */}
-          <View style={styles.inputWrapper}>
-            <Icon name="lock" color="#00aced" size={40} />
-            <TextInput
-              secureTextEntry={true}
-              placeholder="Podaj hasło"
-              style={styles.input}
-              onChangeText={text => this.setState({ password: text })}
-              value={this.state.password}
-            />
-          </View>
-
-          {/* Submit Button */}
-          <CustomButton
-            title="ZALOGUJ"
-            onPress={this.authorizeEntry}
-          />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -113,9 +144,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 35,
     width: "100%",
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#2c5cbd"
+    backgroundColor: "#2c5cbd",
   },
 
   loginWrapper: {
@@ -145,17 +177,18 @@ const styles = StyleSheet.create({
   inputWrapper: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start"
+    justifyContent: "space-around",
+    alignItems: "flex-end",
+    marginBottom: 20,
   },
 
   input: {
-    height: 40,
     borderColor: "gray",
     borderWidth: 1,
     width: "80%",
-    marginBottom: 20,
+    fontSize: Math.min(wp('4.5%'), 20),
     marginRight: 7,
+    marginLeft: 5,
     borderWidth: 0,
     borderBottomWidth: 1
   }

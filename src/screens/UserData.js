@@ -6,6 +6,7 @@ import MainViewLayout from "../layout/MainViewLayout"
 import { connect } from 'react-redux'
 import { ContactInfo } from '../components/ContactInfo'
 import { DataOutput } from '../components/DataOutput'
+import { ScrollView } from "react-native-gesture-handler"
 
 class UserData extends Component {
     constructor(props) {
@@ -26,25 +27,28 @@ class UserData extends Component {
                 openSideBar={this.props.navigation.openDrawer}
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >
-                <View style={styles.container}>
-                    <DataOutput
-                        title='ID Użytkownika:'
-                        value={String(this.props.id)}
-                    />
-                    <DataOutput
-                        title='Nazwa Firmy:'
-                        value={this.props.company}
-                    />
-                    <DataOutput
-                        title='Imię:'
-                        value={this.props.name || '--------'}
-                    />
-                    <DataOutput
-                        title='Nazwisko:'
-                        value={this.props.surname || '--------'}
-                    />
-                </View>
-                <ContactInfo />
+                <ScrollView 
+                    contentContainerStyle={{minHeight: '100%'}}>
+                    <View style={styles.container}>
+                        <DataOutput
+                            title='ID Użytkownika:'
+                            value={String(this.props.id)}
+                        />
+                        <DataOutput
+                            title='Nazwa Firmy:'
+                            value={this.props.company}
+                        />
+                        <DataOutput
+                            title='Imię:'
+                            value={this.props.name || '--------'}
+                        />
+                        <DataOutput
+                            title='Nazwisko:'
+                            value={this.props.surname || '--------'}
+                        />
+                    </View>
+                    <ContactInfo />
+                    </ScrollView>
             </MainViewLayout>
         )
     }
