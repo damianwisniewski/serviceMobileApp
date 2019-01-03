@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     fontSize: Math.min(wp('4.6%'), 20),
     // marginBottom: 10,
-    // marginTop: 10,
+    marginTop: 10,
     fontWeight: 'bold'
   },
 
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 20,
     // marginBottom: 10,
-    // marginTop: 10,
+    marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center'
   }

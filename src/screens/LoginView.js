@@ -75,6 +75,7 @@ class LoginView extends Component {
         }
       })
       .catch(err => {
+        console.log(err)
         this.setState({ information: "Przepraszamy pojawiły sie problemy techniczne, proszę spróbować później" })
       })
       .finally(() => {

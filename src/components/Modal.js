@@ -61,11 +61,8 @@ const stylesModal = {
   modal: {
     backgroundColor: '#FFF',
     width: 250,
-    height: 250,
     borderRadius: 5,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
+    padding: 30
   },
 
   text: {

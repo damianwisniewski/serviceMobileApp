@@ -1,13 +1,13 @@
 import React, { Component } from "react"
 import { StyleSheet, ScrollView, Picker } from "react-native"
 import { Icon } from "react-native-elements"
-import { TileButton } from "../components/TileButton"
-import MainViewLayout from "../layout/MainViewLayout"
 import { CustomInput } from "../components/CustomInput"
 import { SelectInput } from "../components/SelectInput"
 import { CustomTextarea } from "../components/CustomTextarea"
 import { CustomButton } from "../components/CustomButton"
 import { connect } from 'react-redux'
+import MainViewLayout from "../layout/MainViewLayout"
+import CustomModal from "../components/Modal"
 
 class NewNotification extends Component {
     constructor(props) {
@@ -18,7 +18,9 @@ class NewNotification extends Component {
             category: '',
             program: '', 
             text: '',
-            popMessage: ''
+            popMessage: '',
+            dataSend: false,
+            isModalVisible: false
         }
     }
 
@@ -41,26 +43,37 @@ class NewNotification extends Component {
         });
     }
 
-    ifFormFilled = () => {
+    delayedHideModal = () => {
+        setTimeout(() => this.setState({isModalVisible: false}), 2500)
+    }
+    
+    isFormFilled = () => {
         const isValid = this.state.id && this.state.category && this.state.program && this.state.text
         
         if(!isValid) {
             this.setState({popMessage: 'Musisz wypełnić wszystkie pola!'})
         }
 
+        console.log(this.state.id, this.state.category, this.state.program, this.state.text)
         return isValid
     }
 
     sendData = () => {
-        if(!this.isFormFilled()) return
-        
+        this.setState({popMessage: ""})
+
+        if(!this.isFormFilled()) {
+            this.setState({popMessage: "Wypełnij wszystkie dane!", dataSend: false, isModalVisible: true})
+            this.delayedHideModal()
+            return
+        }
+
         fetch(`http://aplikacja-wsb.herokuapp.com/api/new-issue`, {
             method: "PUT",
             body: JSON.stringify({
-                id: this.props.id,
-                category: this.props.category,
-                program: this.props.program,
-                text: this.props.text
+                id: this.state.id,
+                category: this.state.category,
+                program: this.state.program,
+                text: this.state.text
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -69,10 +82,16 @@ class NewNotification extends Component {
           .then(res => {
             if(res.done) {
                 this.clearForm();
-                this.setState({popMessage: "Dobra robota! Zgłoszenie zostało pomyślnie wysłane", dataSend: true})
+                this.setState({popMessage: "Dobra robota! Zgłoszenie zostało pomyślnie wysłane", dataSend: true, isModalVisible: true})
+                this.delayedHideModal()
             } else {
-                this.setState({popMessage: "Coś poszło nie tak! Nire udało się wysłać zgłoszenia, Być może podałeś ZŁY NUMER ZGŁOSZENIA", dataSend: false})
+                this.setState({popMessage: "Coś poszło nie tak! Nie udało się wysłać zgłoszenia, Być może podałeś ZŁY NUMER ZGŁOSZENIA", dataSend: false, isModalVisible: true})
+                this.delayedHideModal()
             }
+        })
+        .catch(err => {
+            this.setState({popMessage: "Przepraszamy, pojawiły sie problemy techniczne", dataSend: false, isModalVisible: true})
+            this.delayedHideModal()
         })
     }
 
@@ -83,6 +102,15 @@ class NewNotification extends Component {
                 openSideBar={this.props.navigation.openDrawer}
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >
+
+            { this.state.isModalVisible && (
+                <CustomModal 
+                    text={ this.state.popMessage }
+                    stopAnimate={Boolean(this.state.popMessage)}
+                    fail={!this.state.dataSend}
+                />
+            ) }
+
                 <ScrollView 
                     scrollEnabled={true}
                     showsVerticalScrollIndicator={true}
@@ -96,23 +124,26 @@ class NewNotification extends Component {
 
                     <SelectInput 
                         title='Kategoria zgłoszenia:'
-                        onValueChange={ text => this.setState({ category: text })}
+                        onValueChange={ value => this.setState({ category: value })}
                         selectedValue={this.state.category}
                         itemsArray={[
-                            'sdsdsda',
-                            'sfsdsfdsgd',
-                            'gfgsd'
+                            'Interfejs aplikacji',
+                            'Wyświetlanie danych',
+                            'Przetwarzanie danych',
+                            'Tworzenie dokumentów',
+                            'Przekazywanie informacji',
+                            'Inna...'
                         ]}
                     />
 
                     <SelectInput 
                         title='Kategoria zgłoszenia:'
-                        onValueChange={ text => this.setState({ program: text })}
+                        onValueChange={ value => this.setState({ program: value })}
                         selectedValue={this.state.program}
                         itemsArray={[
-                            'sdsdsda',
-                            'sfsdsfdsgd',
-                            'gfgsd'
+                            'Drukarz',
+                            'Mortes',
+                            'Inspektor'
                         ]}
                     />
 
@@ -125,6 +156,7 @@ class NewNotification extends Component {
 
                     <CustomButton 
                         title='Wyślij!'
+                        onPress={() => this.sendData()}
                     />
 
                 </ScrollView>

@@ -5,9 +5,9 @@ export const SelectInput = props => {
     const defaultValue = ['Wybierz kategorie zgłoszenia...']
 
     createOptions = (listOfItems = []) => {
-        const items = [defaultValue, ...listOfItems]
+        const items = [...defaultValue, ...listOfItems]
         return(
-            items.map((item, index) => <Picker.Item label={String(item)} value={item} key={index} />)
+            items.map((item, index) => <Picker.Item label={String(item)} value={index} key={index} />)
         )
     }
 

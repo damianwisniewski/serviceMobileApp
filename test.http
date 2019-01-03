@@ -1,0 +1,9 @@
+
+POST http://localhost:8082/api/login-client
+Content-Type: application/json
+
+{ 
+    "login": 10041, 
+    "password": "bella80" 
+}
+
