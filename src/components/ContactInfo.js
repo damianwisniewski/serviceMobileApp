@@ -23,7 +23,8 @@ export const ContactInfo = props => {
 
 const styles = StyleSheet.create({
     container: {
-        width: "100%", 
+        width: "100%",
+        minHeight: 100, 
         padding: 20,
         justifyContent: "center"
     },

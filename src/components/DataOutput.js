@@ -25,27 +25,27 @@ const styles = StyleSheet.create({
   container: {
     width: '80%',
     flexDirection: 'row',
-    margin: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#555'
+    margin: 15
   },
 
   h2: {
     flex: 1,
     textAlign: 'right',
     paddingRight: 20,
-    fontSize: Math.min(wp('4.5%'), 20),
-    marginBottom: 5,
-    marginTop: 20,
+    fontSize: Math.min(wp('4.6%'), 20),
+    // marginBottom: 10,
+    // marginTop: 10,
     fontWeight: 'bold'
   },
 
   output: {
     flex: 1,
-    fontSize: Math.min(wp('4.5%'), 20),
+    fontSize: Math.min(wp('4.6%'), 20),
+    backgroundColor: '#FFF',
+    borderRadius: 5,
     paddingLeft: 20,
-    marginBottom: 5,
-    marginTop: 20,
+    // marginBottom: 10,
+    // marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center'
   }

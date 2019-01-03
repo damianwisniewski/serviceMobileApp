@@ -28,7 +28,7 @@ class UserData extends Component {
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >
                 <ScrollView 
-                    contentContainerStyle={{minHeight: '100%'}}>
+                    contentContainerStyle={{minHeight: '80%'}}>
                     <View style={styles.container}>
                         <DataOutput
                             title='ID Użytkownika:'
