@@ -55,11 +55,6 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>1fontawesome.ttf</string>
-		<string>fa-brands-400.ttf</string>
-		<string>fontawesome.ttf</string>
-		<string>1.ttf</string>
-		<string>FontAwsome.ttf</string>
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>

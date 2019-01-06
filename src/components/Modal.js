@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, ActivityIndicator} from 'react-native';
+import {Text, View, StyleSheet, Animated, Easing} from 'react-native';
 import { Icon } from "react-native-elements"
 import {
   widthPercentageToDP as wp,
@@ -9,9 +9,15 @@ import {
 } from 'react-native-responsive-screen'
 
 export default class CustomModal extends Component {
+
+  constructor(props) {
+    super(props)
+    this.spinValue = new Animated.Value(0)
+  }
   componentDidMount() {
     // add listener for orientation change, set state orientation and force re-render
     lor(this)
+    this.spin()
   }
   
   componentWillUnmount() {
@@ -19,7 +25,24 @@ export default class CustomModal extends Component {
     rol()
   }
 
+  spin () {
+    this.spinValue.setValue(0)
+    Animated.timing(
+      this.spinValue,
+      {
+        toValue: 1,
+        duration: 4000,
+        easing: Easing.linear
+      }
+    ).start(() => this.spin())
+  }
+
   render() {
+
+    const spin = this.spinValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg']
+    })
 
     const styles = StyleSheet.create({
       ...stylesModal,
@@ -40,14 +63,20 @@ export default class CustomModal extends Component {
     return (
       <View style={styles.overlay}>
         <View style={styles.modal}>
-          <ActivityIndicator 
-            size={50} 
-            color="#00aced" 
-            hidesWhenStopped={true}
-            animating={this.props.stopAnimate ? false : true} />
 
           {
-           this.props.stopAnimate && this.props.fail && <Icon name="cancel" color="#dd4b39" size={55} />
+            !this.props.stopAnimate ? (
+              <Animated.View style={{
+                width: 50,
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                transform: [{rotate: spin}] }}>
+                <Icon name="loader" type="feather" color="#00aced" size={55} />
+              </Animated.View>
+            ) :
+            this.props.fail && <Icon name="cancel" color="#dd4b39" size={55} />
           }
 
           <Text style={styles.text}>{this.props.text}</Text>

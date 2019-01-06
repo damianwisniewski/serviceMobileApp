@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { NavBar } from "../components/NavBar";
+import NavBar from "../components/NavBar";
 import { SmallNavBar } from "../components/SmallNavBar";
 
 export default MainViewLayout = props => {

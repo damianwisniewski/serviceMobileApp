@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, TextInput, StyleSheet } from "react-native";
+import { shadowStyle } from '../helpers/shadow'
 
 export const CustomTextarea = props => {
   return (
@@ -30,12 +31,9 @@ const styles = StyleSheet.create({
 
   input: {
       width: '100%',
+      minHeight: 120,
       backgroundColor: '#FFF',
-      elevation: 3,
-      shadowOffset: { width: 20, height: 20 },
-      shadowColor: "#000",
-      shadowOpacity: 0.4,
-      shadowRadius: 1,
+      ...shadowStyle,
       borderWidth: 1,
       borderColor: '#CCC',
       padding: 5,

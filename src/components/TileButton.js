@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableHighlight, StyleSheet, Text, View} from 'react-native';
 import { Icon } from "react-native-elements"
+import { shadowStyle } from '../helpers/shadow'
 
 export const TileButton = props => {
     
@@ -34,11 +35,7 @@ const styles = StyleSheet.create({
       margin: 20,
       backgroundColor: '#FFF',
       borderRadius: 5,
-      elevation: 3,
-      shadowOffset: { width: 20, height: 20 },
-      shadowColor: "#000",
-      shadowOpacity: 0.4,
-      shadowRadius: 1,
+      ...shadowStyle,
       justifyContent: 'center',
       alignContent: 'center'
     },

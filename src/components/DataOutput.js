@@ -44,9 +44,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 5,
     paddingLeft: 20,
+    overflow: 'hidden',
     // marginBottom: 10,
     marginTop: 10,
     alignItems: 'center',
+    alignSelf: 'center',
     justifyContent: 'center'
   }
 })

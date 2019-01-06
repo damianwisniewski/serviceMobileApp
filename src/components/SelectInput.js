@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, View, Picker, StyleSheet } from "react-native";
+import { Text, View, Picker, StyleSheet, Platform} from "react-native";
+import { shadowStyle } from '../helpers/shadow'
 
 export const SelectInput = props => {
     const defaultValue = ['Wybierz kategorie zgłoszenia...']
@@ -15,9 +16,10 @@ export const SelectInput = props => {
         <View style={styles.container}>
             <Text style={styles.h2}>{ props.title }</Text>
             <Picker
-                mode='dropdown'
+                // mode='dropdown'
                 selectedValue={ props.selectedValue }
                 style={styles.input}
+                itemStyle={{fontSize: 18}}
                 onValueChange={ props.onValueChange }>
                 { createOptions(props.itemsArray) }
             </Picker>
@@ -38,14 +40,12 @@ const styles = StyleSheet.create({
 
     input: {
         width: '100%',
-        height: 40,
+        ...(Platform.OS === 'android' && {height: 40}),
         backgroundColor: '#FFF',
-        elevation: 3,
-        shadowOffset: { width: 20, height: 20 },
-        shadowColor: "#000",
-        shadowOpacity: 0.4,
-        shadowRadius: 1,
+        ...shadowStyle,
         borderWidth: 1,
         borderColor: '#CCC'
     }
+
+    
 })

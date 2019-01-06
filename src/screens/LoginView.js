@@ -6,6 +6,7 @@ import {
   View,
   TextInput
 } from "react-native"
+import { shadowStyle } from '../helpers/shadow'
 import { CustomButton } from "../components/CustomButton"
 import { Icon } from "react-native-elements"
 import { setUser } from '../reduxStore/actions/user'
@@ -155,13 +156,7 @@ const styles = StyleSheet.create({
     height: 320,
     width: "100%",
     padding: 20,
-
-    elevation: 10,
-    shadowOffset: { width: 20, height: 20 },
-    shadowColor: "#000",
-    shadowOpacity: 0.4,
-    shadowRadius: 1,
-
+    ...shadowStyle,
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "space-between",
