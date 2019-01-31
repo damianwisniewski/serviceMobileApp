@@ -65,7 +65,8 @@ export default class CustomModal extends Component {
         <View style={styles.modal}>
 
           {
-            !this.props.stopAnimate ? (
+            !this.props.stopAnimate 
+            ? (
               <Animated.View style={{
                 width: 50,
                 height: 50,
@@ -76,7 +77,11 @@ export default class CustomModal extends Component {
                 <Icon name="loader" type="feather" color="#00aced" size={55} />
               </Animated.View>
             ) :
-            this.props.fail && <Icon name="cancel" color="#dd4b39" size={55} />
+            this.props.fail 
+            ? 
+              <Icon name="cancel" color="#dd4b39" size={55} />
+            :
+              <Icon name="check-circle" type="fontawsome" color="#2f9628" size={55} />
           }
 
           <Text style={styles.text}>{this.props.text}</Text>

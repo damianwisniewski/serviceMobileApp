@@ -9,7 +9,11 @@ import { ScrollView } from "react-native-gesture-handler";
 import LoginView from '../screens/LoginView'
 import MainMenu from '../screens/MainMenu'
 import NewNotification from '../screens/NewNotification'
+import NewComplain from '../screens/NewComplain'
+import NewFeature from '../screens/NewFeature'
 import UserData from '../screens/UserData'
+import YourNotify from '../screens/YourNotify'
+import Message from '../screens/Message'
 
 const AppNavigation = createDrawerNavigator(
   {
@@ -21,6 +25,18 @@ const AppNavigation = createDrawerNavigator(
     },
     NewNotification: {
       screen: NewNotification
+    },
+    NewComplain: {
+      screen: NewComplain
+    },
+    NewFeature: {
+      screen: NewFeature
+    },
+    YourNotify: {
+      screen: YourNotify
+    },
+    Message: {
+      screen: Message
     },
     UserData: {
       screen: UserData
@@ -35,7 +51,7 @@ const AppNavigation = createDrawerNavigator(
     },
     contentComponent: (props) => (
       <ScrollView 
-                    contentContainerStyle={{minHeight: '100%'}}>
+        contentContainerStyle={{minHeight: '100%'}}>
       <View>
         <Image
           style={{width: '100%', height: 150}}

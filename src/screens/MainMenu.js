@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { StyleSheet, View, Image } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { Icon } from "react-native-elements"
 import { TileButton } from "../components/TileButton"
 import MainViewLayout from "../layout/MainViewLayout"
@@ -30,6 +30,38 @@ export default class MainMenu extends Component {
                         iconColor='#444'
                         iconSize={40}
                         onPress={() => this.props.navigation.navigate('NewNotification')}/>
+
+                    <TileButton 
+                        title='Reklamacja'
+                        iconName='warning'
+                        iconType='font-awesome'
+                        iconColor='#444'
+                        iconSize={40}
+                        onPress={() => this.props.navigation.navigate('NewComplain')}/>
+
+                    <TileButton 
+                        title='Funkcjonalność'
+                        iconName='rocket'
+                        iconType='font-awesome'
+                        iconColor='#444'
+                        iconSize={40}
+                        onPress={() => this.props.navigation.navigate('NewFeature')}/>
+
+                    <TileButton 
+                        title='Twoje Zgłoszenia'
+                        iconName='check-square-o'
+                        iconType='font-awesome'
+                        iconColor='#444'
+                        iconSize={40}
+                        onPress={() => this.props.navigation.navigate('YourNotify')}/>
+
+                    <TileButton 
+                        title='Wyślij wiadomość'
+                        iconName='newsletter'
+                        iconType='entypo'
+                        iconColor='#444'
+                        iconSize={40}
+                        onPress={() => this.props.navigation.navigate('Message')}/>
                 </View>
             </MainViewLayout>
         )

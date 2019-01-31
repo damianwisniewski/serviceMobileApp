@@ -10,35 +10,38 @@ import MainViewLayout from "../layout/MainViewLayout"
 import CustomModal from "../components/Modal"
 import { requestDB } from "../helpers/dataRequest";
 
-class NewNotification extends Component {
+class NewComplain extends Component {
+
+    static navigationOptions = {
+        drawerLabel: 'Nowa Reklamacja',
+        drawerIcon: () => (
+            <Icon name="warning" type='font-awesome' />
+        )
+    }
+
     constructor(props) {
         super(props)
 
         this.state = {
             id: 0,
             category: '',
-            program: '', 
+            issueNubmer: 0, 
             text: '',
             popMessage: '',
+            issueNumbers: [],
             dataSend: false,
             isModalVisible: false
         }
     }
 
-    static navigationOptions = {
-        drawerLabel: 'Zgłoszenie Awarii',
-        drawerIcon: () => (
-            <Icon name="bug" type='font-awesome' />
-        )
-    }
-
     componentWillMount = () => {
         this.setState({ id: this.props.id })
+        this.getNotifications(this.props.id)
     }
 
     clearForm = () => {
         this.setState({
-            program: '',
+            issueNubmer: '',
             category: '',
             text: ''
         });
@@ -49,11 +52,24 @@ class NewNotification extends Component {
     }
     
     isFormFilled = () => {
-        const isValid = this.state.id && this.state.category && this.state.program && this.state.text
+        const isValid = this.state.id && this.state.category && this.state.issueNubmer && this.state.text
         if(!isValid) {
             this.setState({popMessage: 'Musisz wypełnić wszystkie pola!'})
         }
         return isValid
+    }
+
+    getNotifications = (id) => {
+        fetch(`http://aplikacja-wsb.herokuapp.com/api/get-all-notifications/${id}`)
+            .then(res => res.json())
+            .then(res => {    
+                if(res) {
+                    const resData = [...res.data.issues]
+                    let dataToDisplay = []
+                    resData.forEach((item) => dataToDisplay.push(`${item.id_zgloszenia}`))
+                    this.setState({issueNumbers: dataToDisplay})
+                } 
+            })
     }
 
     sendData = () => {
@@ -67,12 +83,11 @@ class NewNotification extends Component {
         }
 
         requestDB({
-            url: `http://aplikacja-wsb.herokuapp.com/api/new-issue`,
+            url: `http://aplikacja-wsb.herokuapp.com/api/new-complain`,
             method: 'PUT',
             body: JSON.stringify({
                 id: this.state.id,
-                category: this.state.category,
-                program: this.state.program,
+                issueNubmer: this.state.issueNubmer,
                 text: this.state.text
             })
         }).then(res => {
@@ -90,14 +105,14 @@ class NewNotification extends Component {
     render() {
         return (
             <MainViewLayout
-                screenTitle={NewNotification.navigationOptions.drawerLabel}  
+                screenTitle={NewComplain.navigationOptions.drawerLabel}  
                 openSideBar={this.props.navigation.openDrawer}
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >
 
             { this.state.isModalVisible && (
                 <CustomModal 
-                    text={ this.state.popMessage || 'Wysyłanie...'}
+                    text={ this.state.popMessage || 'Wysyłanie...' }
                     stopAnimate={Boolean(this.state.popMessage)}
                     fail={!this.state.dataSend}
                 />
@@ -115,8 +130,18 @@ class NewNotification extends Component {
                     />
 
                     <SelectInput 
-                        title='Kategoria problemu:'
-                        placeholder='Kategoria...'
+                        title='Numer zgłoszenia do reklamacja:'
+                        placeholder='Numer zgłoszenia...'
+                        onValueChange={ value => this.setState({ issueNubmer: value })}
+                        selectedValue={this.state.issueNubmer}
+                        itemsArray={[
+                            ...this.state.issueNumbers
+                        ]}
+                    />
+
+                    <SelectInput 
+                        title='Przyczyna reklamacji:'
+                        placeholder='Przyczyna reklamacji...'
                         onValueChange={ value => this.setState({ category: value })}
                         selectedValue={this.state.category}
                         itemsArray={[
@@ -129,21 +154,9 @@ class NewNotification extends Component {
                         ]}
                     />
 
-                    <SelectInput 
-                        title='Program dzie bład występuje:'
-                        placeholder='Program...'
-                        onValueChange={ value => this.setState({ program: value })}
-                        selectedValue={this.state.program}
-                        itemsArray={[
-                            'Drukarz',
-                            'Mortes',
-                            'Inspektor'
-                        ]}
-                    />
-
                     <CustomTextarea 
-                        title='Treść zgłoszenia:'
-                        placeholder='Tutaj wpisz treść zgłoszenia...'
+                        title='Treść reklamacji:'
+                        placeholder='Tutaj wpisz treść reklamacji...'
                         onChangeText={ text => this.setState({ text: text })}
                         value={this.state.text}
                     />
@@ -174,4 +187,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(NewNotification)
+export default connect(mapStateToProps, null)(NewComplain)

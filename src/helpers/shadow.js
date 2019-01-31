@@ -9,7 +9,7 @@ export const shadowStyle = Platform.select({
         shadowRadius: 2
     },
     android: {
-        elevation: 10,
+        elevation: 4,
         shadowOffset: { width: 20, height: 20 },
         shadowColor: "#000",
         shadowOpacity: 0.4,

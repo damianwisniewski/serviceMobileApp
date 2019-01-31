@@ -7,7 +7,7 @@ export const CustomInput = props => {
     <View style={styles.container}>
       <Text style={styles.h2}>{ props.title }</Text>
       <TextInput
-        style={styles.input}
+        style={{...styles.input, backgroundColor: props.editable ? '#FFF' : '#CCC', color: '#000'}}
         placeholder = { props.placeholder || 'use placeholder attribute' }
         onChangeText = { props.onChangeText }
         value = { props.value }
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
 
   input: {
       width: '100%',
-      backgroundColor: '#FFF',
       ...shadowStyle,
       borderWidth: 1,
       borderColor: '#CCC',

@@ -3,7 +3,7 @@ import { Text, View, Picker, StyleSheet, Platform} from "react-native";
 import { shadowStyle } from '../helpers/shadow'
 
 export const SelectInput = props => {
-    const defaultValue = ['Wybierz kategorie zgłoszenia...']
+    const defaultValue = [props.placeholder || 'Wybierz kategorie zgłoszenia...']
 
     createOptions = (listOfItems = []) => {
         const items = [...defaultValue, ...listOfItems]
@@ -16,7 +16,6 @@ export const SelectInput = props => {
         <View style={styles.container}>
             <Text style={styles.h2}>{ props.title }</Text>
             <Picker
-                // mode='dropdown'
                 selectedValue={ props.selectedValue }
                 style={styles.input}
                 itemStyle={{fontSize: 18}}

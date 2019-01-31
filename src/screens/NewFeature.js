@@ -10,7 +10,7 @@ import MainViewLayout from "../layout/MainViewLayout"
 import CustomModal from "../components/Modal"
 import { requestDB } from "../helpers/dataRequest";
 
-class NewNotification extends Component {
+class NewFeature extends Component {
     constructor(props) {
         super(props)
 
@@ -26,9 +26,9 @@ class NewNotification extends Component {
     }
 
     static navigationOptions = {
-        drawerLabel: 'Zgłoszenie Awarii',
+        drawerLabel: 'Nowa Funkcjonalność',
         drawerIcon: () => (
-            <Icon name="bug" type='font-awesome' />
+            <Icon name="rocket" type='font-awesome' />
         )
     }
 
@@ -67,11 +67,10 @@ class NewNotification extends Component {
         }
 
         requestDB({
-            url: `http://aplikacja-wsb.herokuapp.com/api/new-issue`,
+            url: `http://aplikacja-wsb.herokuapp.com/api/new-functionality`,
             method: 'PUT',
             body: JSON.stringify({
                 id: this.state.id,
-                category: this.state.category,
                 program: this.state.program,
                 text: this.state.text
             })
@@ -90,7 +89,7 @@ class NewNotification extends Component {
     render() {
         return (
             <MainViewLayout
-                screenTitle={NewNotification.navigationOptions.drawerLabel}  
+                screenTitle={NewFeature.navigationOptions.drawerLabel}  
                 openSideBar={this.props.navigation.openDrawer}
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >
@@ -115,8 +114,8 @@ class NewNotification extends Component {
                     />
 
                     <SelectInput 
-                        title='Kategoria problemu:'
-                        placeholder='Kategoria...'
+                        title='Kategoria rozszerzenia:'
+                        placeholder='Rozszrzenie...'
                         onValueChange={ value => this.setState({ category: value })}
                         selectedValue={this.state.category}
                         itemsArray={[
@@ -130,7 +129,7 @@ class NewNotification extends Component {
                     />
 
                     <SelectInput 
-                        title='Program dzie bład występuje:'
+                        title='Program którego dotyczy:'
                         placeholder='Program...'
                         onValueChange={ value => this.setState({ program: value })}
                         selectedValue={this.state.program}
@@ -174,4 +173,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(NewNotification)
+export default connect(mapStateToProps, null)(NewFeature)

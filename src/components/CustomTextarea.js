@@ -3,11 +3,13 @@ import { Text, View, TextInput, StyleSheet } from "react-native";
 import { shadowStyle } from '../helpers/shadow'
 
 export const CustomTextarea = props => {
+  const propsStyles = props.style || []
+
   return (
     <View style={styles.container}>
       <Text style={styles.h2}>{ props.title }</Text>
       <TextInput
-        style={styles.input}
+        style={{...styles.input, ...propsStyles}}
         multiline = { true }
         numberOfLines = { props.numberOfLines || 4 }
         placeholder = { props.placeholder || 'use placeholder attribute' }

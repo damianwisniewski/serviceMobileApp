@@ -10,14 +10,12 @@ import MainViewLayout from "../layout/MainViewLayout"
 import CustomModal from "../components/Modal"
 import { requestDB } from "../helpers/dataRequest";
 
-class NewNotification extends Component {
+class Message extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             id: 0,
-            category: '',
-            program: '', 
             text: '',
             popMessage: '',
             dataSend: false,
@@ -26,9 +24,9 @@ class NewNotification extends Component {
     }
 
     static navigationOptions = {
-        drawerLabel: 'Zgłoszenie Awarii',
+        drawerLabel: 'Wyślij wiadomość',
         drawerIcon: () => (
-            <Icon name="bug" type='font-awesome' />
+            <Icon name="newsletter" type='entypo' />
         )
     }
 
@@ -38,8 +36,6 @@ class NewNotification extends Component {
 
     clearForm = () => {
         this.setState({
-            program: '',
-            category: '',
             text: ''
         });
     }
@@ -49,55 +45,50 @@ class NewNotification extends Component {
     }
     
     isFormFilled = () => {
-        const isValid = this.state.id && this.state.category && this.state.program && this.state.text
-        if(!isValid) {
-            this.setState({popMessage: 'Musisz wypełnić wszystkie pola!'})
-        }
-        return isValid
+        return this.state.id && this.state.text
     }
 
-    sendData = () => {
+    sendEmail() {
         this.setState({popMessage: ""})
         this.setState({isModalVisible: true})
 
         if(!this.isFormFilled()) {
-            this.setState({popMessage: "Wypełnij wszystkie dane!", dataSend: false, isModalVisible: true})
+            this.setState({popMessage: "Uzupełnij treść wiadomości", dataSend: false, isModalVisible: true})
             this.delayedHideModal()
             return
-        }
+        } 
 
-        requestDB({
-            url: `http://aplikacja-wsb.herokuapp.com/api/new-issue`,
-            method: 'PUT',
+        fetch(`http://aplikacja-wsb.herokuapp.com/api/send-email`, {
+            method: 'POST',
             body: JSON.stringify({
-                id: this.state.id,
-                category: this.state.category,
-                program: this.state.program,
+                to: 'wsb.service.api@gmail.com',
+                subject: `Wiadomość od uytkownika ${this.state.id}`,
                 text: this.state.text
-            })
-        }).then(res => {
-            this.clearForm();
-            this.setState({popMessage: res.message, dataSend: res.dataSend, isModalVisible: true})
-        }).catch(res => {
-            this.setState({popMessage: res.message, dataSend: res.dataSend, isModalVisible: true})
-        }).finally(() => {
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            this.setState({popMessage: "Wiadomość została wysłana", dataSend: true, isModalVisible: true})
+            this.clearForm()
+            this.delayedHideModal()
+        }).catch(() => {
+            this.setState({popMessage: "Przepraszamy coś poszło nie tak!", dataSend: false, isModalVisible: true})
             this.delayedHideModal()
         })
     }
 
-    
-
     render() {
         return (
             <MainViewLayout
-                screenTitle={NewNotification.navigationOptions.drawerLabel}  
+                screenTitle={Message.navigationOptions.drawerLabel}  
                 openSideBar={this.props.navigation.openDrawer}
                 onUserIconPress={() => this.props.navigation.navigate('UserData')}
             >
 
             { this.state.isModalVisible && (
                 <CustomModal 
-                    text={ this.state.popMessage || 'Wysyłanie...'}
+                    text={ this.state.popMessage || 'Wysyłanie' }
                     stopAnimate={Boolean(this.state.popMessage)}
                     fail={!this.state.dataSend}
                 />
@@ -114,35 +105,9 @@ class NewNotification extends Component {
                         editable={false}
                     />
 
-                    <SelectInput 
-                        title='Kategoria problemu:'
-                        placeholder='Kategoria...'
-                        onValueChange={ value => this.setState({ category: value })}
-                        selectedValue={this.state.category}
-                        itemsArray={[
-                            'Interfejs aplikacji',
-                            'Wyświetlanie danych',
-                            'Przetwarzanie danych',
-                            'Tworzenie dokumentów',
-                            'Przekazywanie informacji',
-                            'Inna...'
-                        ]}
-                    />
-
-                    <SelectInput 
-                        title='Program dzie bład występuje:'
-                        placeholder='Program...'
-                        onValueChange={ value => this.setState({ program: value })}
-                        selectedValue={this.state.program}
-                        itemsArray={[
-                            'Drukarz',
-                            'Mortes',
-                            'Inspektor'
-                        ]}
-                    />
-
                     <CustomTextarea 
-                        title='Treść zgłoszenia:'
+                        numberOfLines={15}
+                        title='Treść wiadomości:'
                         placeholder='Tutaj wpisz treść zgłoszenia...'
                         onChangeText={ text => this.setState({ text: text })}
                         value={this.state.text}
@@ -150,7 +115,7 @@ class NewNotification extends Component {
 
                     <CustomButton 
                         title='Wyślij!'
-                        onPress={() => this.sendData()}
+                        onPress={() => this.sendEmail()}
                     />
 
                 </ScrollView>
@@ -174,4 +139,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(NewNotification)
+export default connect(mapStateToProps, null)(Message)
